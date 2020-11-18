@@ -15,11 +15,11 @@
       <input clrInput type="text" formControlName="name"/>
     </clr-input-container>
     <clr-input-container>
-      <label>X</label>
+      <label>경도</label>
       <input clrInput type="text" formControlName="x"/>
     </clr-input-container>
     <clr-input-container>
-      <label>Y</label>
+      <label>위도 </label>
       <input clrInput type="text" formControlName="y"/>
     </clr-input-container>
     <clr-combobox-container>
@@ -35,5 +35,9 @@
         </clr-options>
       </clr-combobox>
     </clr-combobox-container>
+    <clr-input-container>
+      <label>사진 URL 첨부</label>
+      <input clrInput type="text" formControlName="url"/>
+    </clr-input-container>
   </form>
 <button class="btn btn-primary" (click)="save()">제출</button>

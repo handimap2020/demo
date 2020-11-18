@@ -8,6 +8,7 @@ export class ExploreService {
           id: '0',
           name: '테스트',
           x: 5,
+          url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Anam-pf.jpg/300px-Anam-pf.jpg',
           y: 1,
           tags: ['1', '2'],
       },

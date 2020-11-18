@@ -15,6 +15,7 @@ export class ExploreFormComponent implements OnInit {
       name: new FormControl([value.name]),
       x: new FormControl([value.x]),
       y: new FormControl([value.y]),
+      url: new FormControl([value.url]),
       tags: new FormControl(this.tags.filter(x => value.tags.includes(x.id))),
     });
   }
@@ -44,6 +45,7 @@ export class ExploreFormComponent implements OnInit {
         name: new FormControl(['']),
         x: new FormControl(['']),
         y: new FormControl(['']),
+        url: new FormControl(['']),
         tags: new FormControl([]),
       });
     }
@@ -67,6 +69,7 @@ export class ExploreFormComponent implements OnInit {
       name: this.formGroup.controls['name'].value,
       x: this.formGroup.controls['x'].value,
       y: this.formGroup.controls['y'].value,
+      url: this.formGroup.controls['url'].value,
       tags: this.formGroup.controls['tags'].value.map(x => x.id),
     });
   }
