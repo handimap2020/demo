@@ -25,5 +25,5 @@
 </div>
 <div *ngIf="spots.length" style="padding-bottom: 60px;">
 <h3>입력하신 조건에 맞는 {{ spots.length }}건의 검색 결과가 나왔습니다.</h3>
-<app-explore-datagrid [data]="spots" (delete)="onDelete($event)"></app-explore-datagrid>
+<app-explore-datagrid [data]="spots" (delete)="onDelete($event)" (goto)="movemap($event)"></app-explore-datagrid>
 </div>

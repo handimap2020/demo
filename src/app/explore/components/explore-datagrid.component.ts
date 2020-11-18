@@ -10,6 +10,7 @@ import { Spot } from '../models/explore.model';
 export class ExploreDatagridComponent implements OnInit {
   @Input() data: Spot[];
   @Output() delete = new EventEmitter<string>();
+  @Output() goto = new EventEmitter<Spot>();
 
   constructor(
     private router: Router,
@@ -24,6 +25,10 @@ export class ExploreDatagridComponent implements OnInit {
 
   onDelete(id: string): void {
     this.delete.emit(id);
+  }
+
+  onGoto(value: Spot): void {
+    this.goto.emit(value);
   }
 
 }

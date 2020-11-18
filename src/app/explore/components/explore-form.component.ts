@@ -105,5 +105,5 @@ export class ExploreFormComponent implements OnInit {
           this.map.setBounds(bounds);
       }
     });
-  } 
+  }
 }

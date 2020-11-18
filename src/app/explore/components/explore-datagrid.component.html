@@ -1,8 +1,8 @@
 <div class="clr-row">
     <div class="clr-col-lg-4 clr-col-12" *ngFor="let spot of data">
-        <a class="card clickable">
+        <a class="card clickable" (click)=onGoto(spot)>
             <div class="card-img">
-                <img src="{{ spot.url }}">
+                <img src="{{ spot.url }}" style="height: 250px">
             </div>
             <div class="card-block">
                 <div class="card-title">

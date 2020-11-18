@@ -35,49 +35,56 @@ export class ExploreLayoutComponent implements OnInit {
     this.tags = this.tagService.getAll();
     this.spotList = this.exploreService.getAll();
     this.spots = this.spotList;
-    // 마커가 표시될 위치입니다 
-    const markerPosition  = new this.kakao.maps.LatLng(37.585953, 127.028881); 
-    // 마커를 생성합니다
-    const marker = new this.kakao.maps.Marker({
-      position: markerPosition
-    });
-    // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(this.map);
 
-    var iwContent = `
-    <div style="width: 200px; padding:10px">
-      <strong>
-        <a href="https://www.naver.com" title="안암역">안암역</a>
-      </strong>
-      <div class="content">
-          <div>
-          <span class="label label-blue">낮은 문턱</span>
-          <span class="label label-light-blue">넓은 공간</span>
-          </div>
-          <p data-id="contact" class="contact">
-            <a href="#none" target="_blank" class="detail">상세보기</a>
-            <a href="#none" data-id="report" class="report">정보수정</a>
-          </p>
-      </div>
-    </div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-    iwPosition = new this.kakao.maps.LatLng(37.585953, 127.028881); //인포윈도우 표시 위치입니다
-    
-    // 인포윈도우를 생성합니다
-    var infowindow = new this.kakao.maps.InfoWindow({
-      position : iwPosition, 
-      content : iwContent,
+    this.spotList.forEach(x => {
+      // 마커가 표시될 위치입니다 
+      const markerPosition  = new this.kakao.maps.LatLng(x.y, x.x); 
+      // 마커를 생성합니다
+      const marker = new this.kakao.maps.Marker({
+        position: markerPosition
+      });
+      // 마커가 지도 위에 표시되도록 설정합니다
+      marker.setMap(this.map);
+      console.log(x);
+      let iwContent = `
+      <div style="width: 200px; padding:10px">
+        <strong>
+          <a href="https://www.naver.com" title="${x.name}">${x.name}</a>
+        </strong>
+        <div class="content">
+            <div>`;
+      x.tags.forEach(y => {
+        iwContent = iwContent + `<span class="label label-light-blue">${this.tags.find(t => t.id == y).name}</span>`;
+      });
+      iwContent = iwContent +
+            `</div>
+        </div>
+      </div>`; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+      const iwPosition = new this.kakao.maps.LatLng(x.y, x.x); //인포윈도우 표시 위치입니다
+      // 인포윈도우를 생성합니다
+      const infowindow = new this.kakao.maps.InfoWindow({
+        position : iwPosition, 
+        content : iwContent,
+      });
+      // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+      infowindow.open(this.map, marker); 
     });
-    // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-    infowindow.open(this.map, marker); 
   }
 
-  filter() {
+  filter(): void {
     this.spots = this.spotList.filter(x => x.name.includes(this.nameFilter));
     if (this.tagFilter) {
       this.tagFilter.forEach(tag => {
         this.spots = this.spots.filter(x => x.tags.includes(tag.id));
       })
     }
+  }
+
+  movemap(value: Spot): void {
+    console.log(value);
+    const bounds = new this.kakao.maps.LatLngBounds();
+    bounds.extend(new this.kakao.maps.LatLng(value.y, value.x));
+    this.map.setBounds(bounds);
   }
 
   onDelete(id: string): void {
