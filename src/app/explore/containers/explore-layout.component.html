@@ -1,0 +1,29 @@
+<h1>찾아보기</h1>
+<button class="btn btn-primary" routerLink="add">새로운 장소를 등록해보세요!</button>
+<div id="map" style="width:100%; height:400px;"></div>
+<div class="clr-form-control">
+    <label for="basic" class="clr-control-label">이름으로 찾아보기</label>
+    <div class="clr-control-container" class="field">
+        <div class="clr-input-wrapper">
+            <input type="text" [(ngModel)]="nameFilter" (ngModelChange)="filter()" id="basic" placeholder="Enter value here" class="clr-input field" style="max-height: none; font-size: 24px"/>
+            <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+        </div>
+    </div>
+    <clr-combobox-container class="field" style="margin-bottom: 30px;">
+      <label>태그로 찾아보기</label>
+      <clr-combobox name="multiSelect" clrMulti="true" [(ngModel)]="tagFilter" (ngModelChange)="filter()">
+        <ng-container *clrOptionSelected="let tag">
+          <clr-icon shape="tag" role="img"></clr-icon> {{tag.name}}
+        </ng-container>
+        <clr-options>
+          <clr-option *clrOptionItems="let tag of tags; field:'name'" [clrValue]="tag">
+            <clr-icon shape="tag" role="img"></clr-icon> {{tag.name}}
+          </clr-option>
+        </clr-options>
+      </clr-combobox>
+    </clr-combobox-container>
+</div>
+<div *ngIf="spots.length" style="padding-bottom: 60px;">
+<h3>입력하신 조건에 맞는 {{ spots.length }}건의 검색 결과가 나왔습니다.</h3>
+<app-explore-datagrid [data]="spots" (delete)="onDelete($event)"></app-explore-datagrid>
+</div>

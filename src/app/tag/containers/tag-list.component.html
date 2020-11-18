@@ -1,0 +1,3 @@
+<h1>태그 관리</h1>
+<button class="btn btn-primary btn-block" routerLink="add">새로운 태그 추가</button>
+<app-tag-datagrid [data]="tagList" (delete)="onDelete($event)"></app-tag-datagrid>
