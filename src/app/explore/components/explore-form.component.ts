@@ -24,6 +24,7 @@ export class ExploreFormComponent implements OnInit {
 
   kakao = window['kakao'];
   map: any;
+  markers: any[] = [];
 
   formGroup: FormGroup;
   editId: string;
@@ -84,12 +85,17 @@ export class ExploreFormComponent implements OnInit {
 
     search.keywordSearch(value, (data, status, pagination) => {
       if (status === that.kakao.maps.services.Status.OK) {
+        that.markers.forEach(x => {
+          x.setMap(null);
+        })
+        that.markers = [];
           const bounds = new that.kakao.maps.LatLngBounds();
           data.forEach(location => {
             const marker = new that.kakao.maps.Marker({
                 map: that.map,
                 position: new that.kakao.maps.LatLng(location.y, location.x) 
             });
+            that.markers.push(marker);
             // 마커에 클릭이벤트를 등록합니다
             that.kakao.maps.event.addListener(marker, 'click', () => {
                 // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다

@@ -31,6 +31,7 @@ export class ExploreLayoutComponent implements OnInit {
       level: 3 //지도의 레벨(확대, 축소 정도)
     };
     this.map = new this.kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    this.map.setZoomable(false);
 
     this.tags = this.tagService.getAll();
     this.spotList = this.exploreService.getAll();
@@ -47,9 +48,9 @@ export class ExploreLayoutComponent implements OnInit {
       marker.setMap(this.map);
       console.log(x);
       let iwContent = `
-      <div style="width: 200px; padding:10px">
+      <div style="width: 150px; padding:10px">
         <strong>
-          <a href="https://www.naver.com" title="${x.name}">${x.name}</a>
+          <a href="" title="${x.name}">${x.name}</a>
         </strong>
         <div class="content">
             <div>`;
